@@ -1,0 +1,244 @@
+/* game.css - Racing Game Styles */
+body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: #111 url('https://images.unsplash.com/photo-1506318137071-a8e063b4bec0?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') no-repeat center center;
+    background-size: cover;
+    overflow: hidden;
+    font-family: 'Audiowide', cursive, sans-serif;
+    color: white;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Audiowide&display=swap');
+
+#gameContainer {
+    position: relative;
+    box-shadow: 0 0 50px rgba(0, 255, 255, 0.3);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+#gameCanvas {
+    display: block;
+    background: linear-gradient(to bottom, #87CEEB 0%, #1E90FF 100%);
+    border: 4px solid #444;
+    box-shadow: 
+        0 0 20px rgba(0, 0, 0, 0.8),
+        inset 0 0 50px rgba(0, 255, 255, 0.2);
+}
+
+#ui {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    color: white;
+    font-size: 20px;
+    text-shadow: 
+        2px 2px 2px black,
+        0 0 10px rgba(0, 255, 255, 0.7);
+    background: rgba(0, 0, 0, 0.5);
+    padding: 15px;
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+#ui div {
+    margin: 5px 0;
+    display: flex;
+    justify-content: space-between;
+    min-width: 200px;
+}
+
+#ui span {
+    color: #FFD700;
+    font-weight: bold;
+}
+
+/* Start Screen Styles */
+#startScreen {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.85);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    z-index: 10;
+    text-align: center;
+}
+
+#startScreen h1 {
+    font-size: 4rem;
+    margin-bottom: 30px;
+    color: #FFD700;
+    text-shadow: 
+        0 0 10px rgba(255, 215, 0, 0.7),
+        0 0 20px rgba(255, 215, 0, 0.5),
+        3px 3px 0 #8B0000;
+    letter-spacing: 3px;
+}
+
+.controls {
+    margin: 30px 0;
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    width: 300px;
+}
+
+.controls p {
+    margin: 10px 0;
+    font-size: 1.2rem;
+    text-align: left;
+    padding-left: 40px;
+    position: relative;
+}
+
+.controls p:before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 30px;
+    height: 30px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #FFD700;
+    font-weight: bold;
+}
+
+.controls p:nth-child(2):before {
+    content: "↑";
+}
+
+.controls p:nth-child(3):before {
+    content: "↓";
+}
+
+.controls p:nth-child(4):before {
+    content: "←";
+}
+
+.controls p:nth-child(5):before {
+    content: "→";
+}
+
+.controls p:nth-child(6):before {
+    content: "␣";
+    font-size: 0.8rem;
+}
+
+button {
+    padding: 15px 40px;
+    font-size: 1.5rem;
+    background: linear-gradient(to bottom, #FF4500 0%, #8B0000 100%);
+    color: white;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    margin-top: 20px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-family: 'Audiowide', cursive;
+    box-shadow: 
+        0 5px 15px rgba(139, 0, 0, 0.4),
+        inset 0 1px 1px rgba(255, 255, 255, 0.2);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+button:hover {
+    transform: translateY(-3px);
+    box-shadow: 
+        0 8px 20px rgba(139, 0, 0, 0.6),
+        inset 0 1px 1px rgba(255, 255, 255, 0.2);
+    background: linear-gradient(to bottom, #FF5500 0%, #9B0000 100%);
+}
+
+button:active {
+    transform: translateY(1px);
+    box-shadow: 
+        0 2px 10px rgba(139, 0, 0, 0.6),
+        inset 0 1px 1px rgba(255, 255, 255, 0.2);
+}
+
+button:after {
+    content: "";
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: rgba(255, 255, 255, 0.1);
+    transform: rotate(45deg);
+    transition: all 0.3s ease;
+}
+
+button:hover:after {
+    left: 100%;
+}
+
+/* End Screen Styles */
+#endScreen {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.9);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    z-index: 20;
+    text-align: center;
+}
+
+#endScreen h1 {
+    font-size: 4rem;
+    margin-bottom: 10px;
+    color: #FFD700;
+    text-shadow: 0 0 10px rgba(255, 215, 0, 0.7);
+}
+
+#endScreen h2 {
+    font-size: 2.5rem;
+    margin-bottom: 30px;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
+
+/* Responsive Design */
+@media (max-width: 800px) {
+    #gameCanvas {
+        width: 100%;
+        height: auto;
+    }
+    
+    #startScreen h1 {
+        font-size: 2.5rem;
+    }
+    
+    .controls {
+        width: 80%;
+    }
+    
+    #ui {
+        font-size: 16px;
+        padding: 10px;
+    }
+}
