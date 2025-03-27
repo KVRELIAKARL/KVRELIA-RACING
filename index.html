@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KVRELIA RACING</title>
+    <title>DeepSeek Racing</title>
     <style>
         body {
             margin: 0;
@@ -12,241 +12,59 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
-            background: #111 url('https://images.unsplash.com/photo-1506318137071-a8e063b4bec0?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') no-repeat center center;
-            background-size: cover;
+            background: #111;
             overflow: hidden;
-            font-family: 'Audiowide', cursive, sans-serif;
-            color: white;
+            font-family: 'Audiowide', cursive;
         }
-
+        
         @import url('https://fonts.googleapis.com/css2?family=Audiowide&display=swap');
-
+        
         #gameContainer {
             position: relative;
-            box-shadow: 0 0 50px rgba(0, 255, 255, 0.3);
-            border-radius: 10px;
-            overflow: hidden;
         }
-
+        
         #gameCanvas {
             display: block;
-            background: linear-gradient(to bottom, #87CEEB 0%, #1E90FF 100%);
+            background: #87CEEB;
             border: 4px solid #444;
-            box-shadow: 
-                0 0 20px rgba(0, 0, 0, 0.8),
-                inset 0 0 50px rgba(0, 255, 255, 0.2);
         }
-
+        
         #ui {
             position: absolute;
-            top: 20px;
-            left: 20px;
+            top: 10px;
+            left: 10px;
             color: white;
-            font-size: 20px;
-            text-shadow: 
-                2px 2px 2px black,
-                0 0 10px rgba(0, 255, 255, 0.7);
+            font-size: 18px;
+            text-shadow: 2px 2px 2px black;
             background: rgba(0, 0, 0, 0.5);
-            padding: 15px;
-            border-radius: 10px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 10px;
+            border-radius: 5px;
         }
-
-        #ui div {
-            margin: 5px 0;
-            display: flex;
-            justify-content: space-between;
-            min-width: 200px;
-        }
-
-        #ui span {
-            color: #FFD700;
-            font-weight: bold;
-        }
-
-        /* Start Screen Styles */
+        
         #startScreen {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.85);
+            background: rgba(0, 0, 0, 0.8);
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             color: white;
             z-index: 10;
-            text-align: center;
         }
-
-        #startScreen h1 {
-            font-size: 4rem;
-            margin-bottom: 30px;
-            color: #FFD700;
-            text-shadow: 
-                0 0 10px rgba(255, 215, 0, 0.7),
-                0 0 20px rgba(255, 215, 0, 0.5),
-                3px 3px 0 #8B0000;
-            letter-spacing: 3px;
-        }
-
-        .controls {
-            margin: 30px 0;
-            padding: 20px;
-            background: rgba(0, 0, 0, 0.5);
-            border-radius: 10px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            width: 300px;
-        }
-
-        .controls p {
-            margin: 10px 0;
-            font-size: 1.2rem;
-            text-align: left;
-            padding-left: 40px;
-            position: relative;
-        }
-
-        .controls p:before {
-            content: "";
-            position: absolute;
-            left: 0;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 30px;
-            height: 30px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 5px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #FFD700;
-            font-weight: bold;
-        }
-
-        .controls p:nth-child(2):before {
-            content: "↑";
-        }
-
-        .controls p:nth-child(3):before {
-            content: "↓";
-        }
-
-        .controls p:nth-child(4):before {
-            content: "←";
-        }
-
-        .controls p:nth-child(5):before {
-            content: "→";
-        }
-
-        .controls p:nth-child(6):before {
-            content: "␣";
-            font-size: 0.8rem;
-        }
-
+        
         button {
-            padding: 15px 40px;
-            font-size: 1.5rem;
-            background: linear-gradient(to bottom, #FF4500 0%, #8B0000 100%);
+            padding: 10px 20px;
+            font-size: 18px;
+            background: #4CAF50;
             color: white;
             border: none;
-            border-radius: 50px;
+            border-radius: 5px;
             cursor: pointer;
             margin-top: 20px;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            font-family: 'Audiowide', cursive;
-            box-shadow: 
-                0 5px 15px rgba(139, 0, 0, 0.4),
-                inset 0 1px 1px rgba(255, 255, 255, 0.2);
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        button:hover {
-            transform: translateY(-3px);
-            box-shadow: 
-                0 8px 20px rgba(139, 0, 0, 0.6),
-                inset 0 1px 1px rgba(255, 255, 255, 0.2);
-            background: linear-gradient(to bottom, #FF5500 0%, #9B0000 100%);
-        }
-
-        button:active {
-            transform: translateY(1px);
-            box-shadow: 
-                0 2px 10px rgba(139, 0, 0, 0.6),
-                inset 0 1px 1px rgba(255, 255, 255, 0.2);
-        }
-
-        button:after {
-            content: "";
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: rgba(255, 255, 255, 0.1);
-            transform: rotate(45deg);
-            transition: all 0.3s ease;
-        }
-
-        button:hover:after {
-            left: 100%;
-        }
-
-        /* End Screen Styles */
-        #endScreen {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.9);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            color: white;
-            z-index: 20;
-            text-align: center;
-        }
-
-        #endScreen h1 {
-            font-size: 4rem;
-            margin-bottom: 10px;
-            color: #FFD700;
-            text-shadow: 0 0 10px rgba(255, 215, 0, 0.7);
-        }
-
-        #endScreen h2 {
-            font-size: 2.5rem;
-            margin-bottom: 30px;
-            text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
-        }
-
-        /* Responsive Design */
-        @media (max-width: 800px) {
-            #gameCanvas {
-                width: 100%;
-                height: auto;
-            }
-            
-            #startScreen h1 {
-                font-size: 2.5rem;
-            }
-            
-            .controls {
-                width: 80%;
-            }
-            
-            #ui {
-                font-size: 16px;
-                padding: 10px;
-            }
         }
     </style>
 </head>
@@ -260,13 +78,7 @@
         </div>
         <div id="startScreen">
             <h1>DeepSeek Racing</h1>
-            <div class="controls">
-                <p>Controls:</p>
-                <p>↑ - Accelerate</p>
-                <p>↓ - Brake/Reverse</p>
-                <p>← → - Steer</p>
-                <p>Space - Handbrake (Drift)</p>
-            </div>
+            <p>Controls: Arrows to drive, Space to drift</p>
             <button id="startButton">Start Race</button>
         </div>
     </div>
@@ -287,30 +99,27 @@
             let player = {};
             let aiCars = [];
             let track = {};
+            let segments = [];
             let lapCount = 1;
             const totalLaps = 3;
             let checkpoints = [];
             let lastCheckpoint = 0;
-            let positions = [];
             
-            // Track definition (a large oval track with some curves)
-            const trackSegments = [
-                { curve: 0, distance: 1000 },   // Long straight
-                { curve: 2, distance: 500 },    // Gentle right curve
-                { curve: 0, distance: 500 },    // Short straight
-                { curve: -3, distance: 600 },   // Sharp left curve
-                { curve: 0, distance: 800 },    // Medium straight
-                { curve: 4, distance: 400 },    // Right curve
-                { curve: -2, distance: 600 },   // Left curve
-                { curve: 0, distance: 1200 },   // Long straight back to start
+            // Track definition
+            const trackData = [
+                { curve: 0, distance: 1000 },   // Straight
+                { curve: 2, distance: 500 },    // Right curve
+                { curve: -3, distance: 600 },   // Left curve
+                { curve: 0, distance: 800 },   // Straight
+                { curve: 4, distance: 400 },   // Right curve
+                { curve: -2, distance: 600 },  // Left curve
+                { curve: 0, distance: 1200 }   // Long straight
             ];
             
             // Initialize game
             function initGame() {
                 // Track properties
                 track = {
-                    segments: trackSegments,
-                    totalDistance: trackSegments.reduce((sum, seg) => sum + seg.distance, 0),
                     width: 2000,
                     rumbleWidth: 300,
                     segmentLength: 200,
@@ -322,10 +131,22 @@
                     }
                 };
                 
+                // Build segments
+                segments = [];
+                let totalDistance = 0;
+                trackData.forEach(segment => {
+                    totalDistance += segment.distance;
+                    segments.push({
+                        curve: segment.curve,
+                        distance: segment.distance,
+                        start: totalDistance - segment.distance,
+                        end: totalDistance
+                    });
+                });
+                track.totalDistance = totalDistance;
+                
                 // Player car
                 player = {
-                    x: canvas.width / 2,
-                    y: canvas.height / 2,
                     width: 30,
                     height: 50,
                     speed: 0,
@@ -343,8 +164,7 @@
                     offset: 0,
                     z: 0,
                     lap: 1,
-                    nextCheckpoint: 0,
-                    position: 1
+                    nextCheckpoint: 0
                 };
                 
                 // AI cars
@@ -361,12 +181,11 @@
                         maxSteering: 0.08,
                         steeringSpeed: 0.02 + Math.random() * 0.01,
                         color: aiColors[i],
-                        segment: Math.floor(Math.random() * track.segments.length),
+                        segment: Math.floor(Math.random() * segments.length),
                         offset: (Math.random() - 0.5) * (track.width / 3),
                         z: 0,
                         lap: 1,
                         nextCheckpoint: 0,
-                        position: i + 2,
                         aiBehavior: {
                             aggression: 0.5 + Math.random() * 0.5,
                             skill: 0.5 + Math.random() * 0.5
@@ -374,16 +193,11 @@
                     });
                 }
                 
-                // Create checkpoints (one per segment)
+                // Checkpoints
                 checkpoints = [];
-                let distance = 0;
-                for (let i = 0; i < track.segments.length; i++) {
-                    checkpoints.push(distance);
-                    distance += track.segments[i].distance;
-                }
-                
-                // Initialize positions
-                updatePositions();
+                segments.forEach(seg => {
+                    checkpoints.push(seg.start);
+                });
                 
                 gameRunning = true;
                 raceStarted = false;
@@ -391,16 +205,15 @@
                 lastCheckpoint = 0;
             }
             
-            // Start race function
+            // Start race
             function startRace() {
-                if (!gameRunning) initGame();
                 startScreen.style.display = 'none';
                 raceStarted = true;
-                requestAnimationFrame(gameLoop);
+                gameLoop();
             }
             
             // Game loop
-            function gameLoop(timestamp) {
+            function gameLoop() {
                 if (!gameRunning) return;
                 
                 update();
@@ -413,10 +226,10 @@
             function update() {
                 if (!raceStarted) return;
                 
-                // Update player car
+                // Update player
                 updateCar(player, true);
                 
-                // Update AI cars
+                // Update AI
                 aiCars.forEach(car => {
                     updateAI(car);
                     updateCar(car, false);
@@ -428,7 +241,7 @@
                 // Update UI
                 updateUI();
                 
-                // Check for lap completion
+                // Check laps
                 checkLapCompletion();
             }
             
@@ -438,10 +251,9 @@
                 car.speed *= 0.98;
                 
                 // Limit speed
-                if (car.speed > car.maxSpeed) car.speed = car.maxSpeed;
-                if (car.speed < -car.reverseSpeed) car.speed = -car.reverseSpeed;
+                car.speed = Math.max(-car.reverseSpeed, Math.min(car.speed, car.maxSpeed));
                 
-                // Move car along track
+                // Move along track
                 car.z += car.speed;
                 
                 // Wrap around track
@@ -449,24 +261,22 @@
                 if (car.z < 0) car.z += track.totalDistance;
                 
                 // Find current segment
-                let seg = findSegment(car.z);
+                const seg = findSegment(car.z);
                 car.segment = seg.index;
                 
                 // Curve effect
                 car.offset += car.steering * car.speed * 0.01;
                 
-                // Keep car on track
+                // Keep on track
                 const maxOffset = track.width / 2 - car.width / 2;
-                if (car.offset < -maxOffset) car.offset = -maxOffset;
-                if (car.offset > maxOffset) car.offset = maxOffset;
+                car.offset = Math.max(-maxOffset, Math.min(car.offset, maxOffset));
                 
-                // Check for checkpoints
+                // Checkpoints
                 if (isPlayer) {
-                    const currentCheckpoint = findCurrentCheckpoint(car.z);
-                    if (currentCheckpoint !== -1 && currentCheckpoint !== car.nextCheckpoint) {
-                        if ((currentCheckpoint > car.nextCheckpoint) || 
-                            (currentCheckpoint === 0 && car.nextCheckpoint === checkpoints.length - 1)) {
-                            car.nextCheckpoint = currentCheckpoint;
+                    const current = findCurrentCheckpoint(car.z);
+                    if (current !== -1 && current !== car.nextCheckpoint) {
+                        if ((current > car.nextCheckpoint) || (current === 0 && car.nextCheckpoint === checkpoints.length - 1)) {
+                            car.nextCheckpoint = current;
                         }
                     }
                 }
@@ -474,24 +284,20 @@
             
             // Update AI behavior
             function updateAI(car) {
-                const seg = track.segments[car.segment];
-                const nextSeg = track.segments[(car.segment + 1) % track.segments.length];
-                
-                // Basic AI logic
+                const seg = segments[car.segment];
                 const targetOffset = (seg.curve * 50) * (1 - car.aiBehavior.skill);
                 
                 // Adjust speed based on curve
                 const curveFactor = Math.abs(seg.curve) / 5;
                 const targetSpeed = car.maxSpeed * (1 - curveFactor * 0.5);
                 
-                // Adjust speed to reach target
                 if (car.speed < targetSpeed) {
                     car.speed += car.acceleration * 0.5;
                 } else {
                     car.speed *= 0.99;
                 }
                 
-                // Adjust steering to reach target offset
+                // Adjust steering
                 if (car.offset < targetOffset) {
                     car.steering += car.steeringSpeed * car.aiBehavior.aggression;
                 } else if (car.offset > targetOffset) {
@@ -501,38 +307,26 @@
                 }
                 
                 // Limit steering
-                if (car.steering > car.maxSteering) car.steering = car.maxSteering;
-                if (car.steering < -car.maxSteering) car.steering = -car.maxSteering;
+                car.steering = Math.max(-car.maxSteering, Math.min(car.steering, car.maxSteering));
                 
-                // Random variations for more natural behavior
+                // Random variation
                 if (Math.random() < 0.05) {
                     car.steering += (Math.random() - 0.5) * car.steeringSpeed * 2;
-                }
-                
-                // Check for checkpoints (simplified for AI)
-                const currentCheckpoint = findCurrentCheckpoint(car.z);
-                if (currentCheckpoint !== -1 && currentCheckpoint !== car.nextCheckpoint) {
-                    if ((currentCheckpoint > car.nextCheckpoint) || 
-                        (currentCheckpoint === 0 && car.nextCheckpoint === checkpoints.length - 1)) {
-                        car.nextCheckpoint = currentCheckpoint;
-                    }
                 }
             }
             
             // Find current segment
             function findSegment(z) {
-                let distance = 0;
-                for (let i = 0; i < track.segments.length; i++) {
-                    distance += track.segments[i].distance;
-                    if (z < distance) {
+                for (let i = 0; i < segments.length; i++) {
+                    if (z >= segments[i].start && z < segments[i].end) {
                         return {
                             index: i,
-                            segment: track.segments[i],
-                            percent: (z - (distance - track.segments[i].distance)) / track.segments[i].distance
+                            segment: segments[i],
+                            percent: (z - segments[i].start) / segments[i].distance
                         };
                     }
                 }
-                return { index: 0, segment: track.segments[0], percent: 0 };
+                return { index: 0, segment: segments[0], percent: 0 };
             }
             
             // Find current checkpoint
@@ -542,13 +336,9 @@
                     const wrap = next === 0;
                     
                     if (wrap) {
-                        if (z >= checkpoints[i] || z < checkpoints[next]) {
-                            return i;
-                        }
+                        if (z >= checkpoints[i] || z < checkpoints[next]) return i;
                     } else {
-                        if (z >= checkpoints[i] && z < checkpoints[next]) {
-                            return i;
-                        }
+                        if (z >= checkpoints[i] && z < checkpoints[next]) return i;
                     }
                 }
                 return -1;
@@ -556,25 +346,20 @@
             
             // Update race positions
             function updatePositions() {
-                // Create array with all cars
                 const allCars = [player, ...aiCars];
                 
-                // Sort by lap (descending), then by checkpoint (descending), then by z (descending)
                 allCars.sort((a, b) => {
                     if (a.lap !== b.lap) return b.lap - a.lap;
                     if (a.nextCheckpoint !== b.nextCheckpoint) return b.nextCheckpoint - a.nextCheckpoint;
                     return b.z - a.z;
                 });
                 
-                // Update positions
                 allCars.forEach((car, index) => {
                     car.position = index + 1;
                 });
-                
-                positions = allCars;
             }
             
-            // Check for lap completion
+            // Check lap completion
             function checkLapCompletion() {
                 if (player.nextCheckpoint === 0 && lastCheckpoint === checkpoints.length - 1) {
                     player.lap++;
@@ -588,25 +373,24 @@
                 lastCheckpoint = player.nextCheckpoint;
             }
             
-            // Show race end screen
+            // Show race end
             function showRaceEnd() {
                 const endScreen = document.createElement('div');
-                endScreen.id = 'endScreen';
                 endScreen.style.position = 'absolute';
                 endScreen.style.top = '0';
                 endScreen.style.left = '0';
                 endScreen.style.width = '100%';
                 endScreen.style.height = '100%';
-                endScreen.style.background = 'rgba(0, 0, 0, 0.7)';
+                endScreen.style.background = 'rgba(0, 0, 0, 0.8)';
                 endScreen.style.display = 'flex';
                 endScreen.style.flexDirection = 'column';
                 endScreen.style.justifyContent = 'center';
                 endScreen.style.alignItems = 'center';
                 endScreen.style.color = 'white';
                 
-                const positionText = player.position === 1 ? '1st - You Win!' : 
-                                    player.position === 2 ? '2nd - Not bad!' : 
-                                    player.position === 3 ? '3rd - Try harder!' : 
+                const positionText = player.position === 1 ? '1st - You Win!' :
+                                    player.position === 2 ? '2nd - Not bad!' :
+                                    player.position === 3 ? '3rd - Try harder!' :
                                     `${player.position}th - Better luck next time!`;
                 
                 endScreen.innerHTML = `
@@ -640,37 +424,29 @@
                 ctx.fillStyle = '#87CEEB';
                 ctx.fillRect(0, 0, canvas.width, canvas.height / 2);
                 
-                // Draw road
-                drawRoad();
+                // Draw track
+                drawTrack();
                 
                 // Draw cars
-                drawCar(player);
-                aiCars.forEach(car => drawCar(car));
+                drawCars();
             }
             
-            // Draw road
-            function drawRoad() {
-                const baseSegment = findSegment(player.z);
-                const basePercent = baseSegment.percent;
-                const playerSegment = baseSegment.index;
+            // Draw track
+            function drawTrack() {
+                const baseSeg = findSegment(player.z);
+                const basePercent = baseSeg.percent;
                 
-                // Draw from back to front (for perspective)
                 for (let n = 0; n < 100; n++) {
-                    const segmentIndex = (playerSegment - n + track.segments.length) % track.segments.length;
-                    const segment = track.segments[segmentIndex];
-                    const segmentPercent = (n === 0) ? basePercent : 1;
+                    const segIdx = (baseSeg.index - n + segments.length) % segments.length;
+                    const seg = segments[segIdx];
+                    const segPercent = (n === 0) ? basePercent : 1;
                     
-                    drawSegment(
-                        segmentIndex,
-                        segment,
-                        segmentPercent,
-                        n
-                    );
+                    drawSegment(segIdx, seg, segPercent, n);
                 }
             }
             
-            // Draw a road segment
-            function drawSegment(segmentIndex, segment, percent, n) {
+            // Draw segment
+            function drawSegment(segIdx, seg, percent, n) {
                 const scale = 1 - (n / 100);
                 const y = canvas.height / 2 + (n * 10);
                 const width = track.width * scale;
@@ -691,7 +467,7 @@
                 ctx.fillRect(canvas.width / 2 - width / 2, y - height, width, height);
                 
                 // Lane markers
-                if (segment.curve === 0) {
+                if (seg.curve === 0) {
                     ctx.fillStyle = track.colors.lane;
                     const laneWidth = 10 * scale;
                     const laneCount = Math.floor(width / 100);
@@ -703,44 +479,44 @@
                 }
                 
                 // Draw cars on this segment
-                drawCarsOnSegment(segmentIndex, scale, y);
+                drawCarsOnSegment(segIdx, scale, y);
             }
             
-            // Draw cars on a segment
-            function drawCarsOnSegment(segmentIndex, scale, y) {
-                // Check player car
-                if (player.segment === segmentIndex) {
+            // Draw cars on segment
+            function drawCarsOnSegment(segIdx, scale, y) {
+                // Player
+                if (player.segment === segIdx) {
                     drawCarSprite(player, scale, y);
                 }
                 
-                // Check AI cars
+                // AI cars
                 aiCars.forEach(car => {
-                    if (car.segment === segmentIndex) {
+                    if (car.segment === segIdx) {
                         drawCarSprite(car, scale, y);
                     }
                 });
             }
             
             // Draw car sprite
-            function drawCarSprite(car, scale, segmentY) {
-                const carWidth = car.width * scale;
-                const carHeight = car.height * scale;
-                const carX = canvas.width / 2 + car.offset * scale - carWidth / 2;
-                const carY = segmentY - carHeight;
+            function drawCarSprite(car, scale, y) {
+                const width = car.width * scale;
+                const height = car.height * scale;
+                const x = canvas.width / 2 + car.offset * scale - width / 2;
+                const carY = y - height;
                 
                 ctx.fillStyle = car.color;
-                ctx.fillRect(carX, carY, carWidth, carHeight);
+                ctx.fillRect(x, carY, width, height);
                 
-                // Add some details
-                ctx.fillStyle = '#000000';
-                ctx.fillRect(carX + 5 * scale, carY + 5 * scale, carWidth - 10 * scale, 10 * scale); // windshield
-                ctx.fillRect(carX + 5 * scale, carY + carHeight - 15 * scale, carWidth - 10 * scale, 10 * scale); // rear
+                // Details
+                ctx.fillStyle = '#000';
+                ctx.fillRect(x + 5 * scale, carY + 5 * scale, width - 10 * scale, 10 * scale);
+                ctx.fillRect(x + 5 * scale, carY + height - 15 * scale, width - 10 * scale, 10 * scale);
                 
-                // If drifting, add smoke
+                // Drift smoke
                 if (car === player && Math.abs(player.steering) > player.maxSteering * 0.8 && player.speed > 50) {
                     ctx.fillStyle = `rgba(200, 200, 200, ${Math.random() * 0.5})`;
-                    const smokeX = carX + (player.steering > 0 ? 0 : carWidth);
-                    const smokeY = carY + carHeight / 2;
+                    const smokeX = x + (player.steering > 0 ? 0 : width);
+                    const smokeY = carY + height / 2;
                     const smokeSize = 20 * scale * Math.random();
                     ctx.beginPath();
                     ctx.arc(smokeX, smokeY, smokeSize, 0, Math.PI * 2);
@@ -748,12 +524,12 @@
                 }
             }
             
-            // Draw car (simple representation)
-            function drawCar(car) {
-                // Cars are drawn in drawSegment for perspective
+            // Draw cars
+            function drawCars() {
+                // Handled in drawSegment
             }
             
-            // Handle keyboard input
+            // Input handling
             const keys = {
                 ArrowUp: false,
                 ArrowDown: false,
@@ -802,14 +578,13 @@
                 } else if (keys.ArrowRight) {
                     player.steering = Math.min(player.maxSteering, player.steering + player.steeringSpeed);
                 } else {
-                    // Center steering when no keys pressed
                     player.steering *= 0.9;
                 }
                 
-                // Drifting (handbrake)
+                // Drifting
                 if (keys[' '] && player.speed > 50) {
-                    player.steering *= 1.5; // Increased steering during drift
-                    player.speed *= player.driftFactor; // Slight speed reduction
+                    player.steering *= 1.5;
+                    player.speed *= player.driftFactor;
                 }
             }
             
@@ -819,7 +594,7 @@
             // Event listeners
             startButton.addEventListener('click', startRace);
             
-            // Input processing loop
+            // Input processing
             setInterval(processInput, 16);
         });
     </script>
