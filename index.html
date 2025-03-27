@@ -110,10 +110,10 @@
                 { curve: 0, distance: 1000 },   // Straight
                 { curve: 2, distance: 500 },    // Right curve
                 { curve: -3, distance: 600 },   // Left curve
-                { curve: 0, distance: 800 },   // Straight
-                { curve: 4, distance: 400 },   // Right curve
-                { curve: -2, distance: 600 },  // Left curve
-                { curve: 0, distance: 1200 }   // Long straight
+                { curve: 0, distance: 800 },    // Straight
+                { curve: 4, distance: 400 },    // Right curve
+                { curve: -2, distance: 600 },   // Left curve
+                { curve: 0, distance: 1200 }    // Long straight
             ];
             
             // Initialize game
@@ -122,7 +122,6 @@
                 track = {
                     width: 2000,
                     rumbleWidth: 300,
-                    segmentLength: 200,
                     colors: {
                         road: '#6B6B6B',
                         grass: '#4A7023',
@@ -135,13 +134,13 @@
                 segments = [];
                 let totalDistance = 0;
                 trackData.forEach(segment => {
-                    totalDistance += segment.distance;
                     segments.push({
                         curve: segment.curve,
                         distance: segment.distance,
-                        start: totalDistance - segment.distance,
-                        end: totalDistance
+                        start: totalDistance,
+                        end: totalDistance + segment.distance
                     });
+                    totalDistance += segment.distance;
                 });
                 track.totalDistance = totalDistance;
                 
@@ -162,7 +161,7 @@
                     color: '#FF0000',
                     segment: 0,
                     offset: 0,
-                    z: 0,
+                    z: Math.floor(totalDistance * 0.1), // Start partway around track
                     lap: 1,
                     nextCheckpoint: 0
                 };
@@ -183,7 +182,7 @@
                         color: aiColors[i],
                         segment: Math.floor(Math.random() * segments.length),
                         offset: (Math.random() - 0.5) * (track.width / 3),
-                        z: 0,
+                        z: Math.floor(totalDistance * (0.1 + i * 0.1)),
                         lap: 1,
                         nextCheckpoint: 0,
                         aiBehavior: {
@@ -194,15 +193,15 @@
                 }
                 
                 // Checkpoints
-                checkpoints = [];
-                segments.forEach(seg => {
-                    checkpoints.push(seg.start);
-                });
+                checkpoints = segments.map(seg => seg.start);
                 
                 gameRunning = true;
                 raceStarted = false;
                 lapCount = 1;
                 lastCheckpoint = 0;
+                
+                // Initial render
+                render();
             }
             
             // Start race
@@ -387,6 +386,7 @@
                 endScreen.style.justifyContent = 'center';
                 endScreen.style.alignItems = 'center';
                 endScreen.style.color = 'white';
+                endScreen.style.zIndex = '20';
                 
                 const positionText = player.position === 1 ? '1st - You Win!' :
                                     player.position === 2 ? '2nd - Not bad!' :
@@ -436,6 +436,7 @@
                 const baseSeg = findSegment(player.z);
                 const basePercent = baseSeg.percent;
                 
+                // Draw from back to front
                 for (let n = 0; n < 100; n++) {
                     const segIdx = (baseSeg.index - n + segments.length) % segments.length;
                     const seg = segments[segIdx];
@@ -450,7 +451,6 @@
                 const scale = 1 - (n / 100);
                 const y = canvas.height / 2 + (n * 10);
                 const width = track.width * scale;
-                const rumbleWidth = track.rumbleWidth * scale;
                 const height = 100 * scale;
                 
                 // Grass
@@ -466,7 +466,7 @@
                 ctx.fillStyle = track.colors.road;
                 ctx.fillRect(canvas.width / 2 - width / 2, y - height, width, height);
                 
-                // Lane markers
+                // Lane markers (on straight segments)
                 if (seg.curve === 0) {
                     ctx.fillStyle = track.colors.lane;
                     const laneWidth = 10 * scale;
@@ -522,11 +522,6 @@
                     ctx.arc(smokeX, smokeY, smokeSize, 0, Math.PI * 2);
                     ctx.fill();
                 }
-            }
-            
-            // Draw cars
-            function drawCars() {
-                // Handled in drawSegment
             }
             
             // Input handling
